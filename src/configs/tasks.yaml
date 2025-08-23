@@ -1,0 +1,27 @@
+tasks:
+  - name: ask_question
+    description: "
+    | Conversation so far: 
+    | {context} 
+    | Now ask a single, relevant interview question for a job position: {job_position} that hasn't been asked before, also considering the job description: {job_description}."
+    expected_output: "A single, clear interview question relevant to the job position: {job_position}"
+    agent: interview_agent
+
+  - name: coach_answer
+    description: "Provide constructive feedback on this answer to the question '{question}': {answer}"
+    expected_output: |
+      A JSON object containing: 
+        - rating
+        - feedback
+        - remark
+      rating:
+          - Scale: 1-5
+          - 5 = Candidate's answer was excellent and closely matched the interviewer's question
+          - 1 = Candidate's answer was poor or irrelevant
+      feedback:
+        - Provide a concise, improved version of the candidate's answer
+        - Maximum of 2 sentences
+      remark:
+        - Positive reinforcement or encouragement for the candidate
+        - example: Well done! or Great job! or Strong answer! etc. 
+    agent: coaching_agent
