@@ -9,6 +9,7 @@ from src.libs.supabase_client import supabase
 from src.constants.tables import Table
 from src.libs.load_yaml import load_yaml_with_vars
 from src.configs.typing import InterviewerType
+from src.libs.helper import get_formatted_messages
 
 
 router = APIRouter()
@@ -58,9 +59,9 @@ async def get_coach_feedback(payload: CoachFeedbackRequest):
 
         tasks = load_yaml_with_vars(
             "src/configs/tasks.yaml",
-            context=[
-                {"message": f"From {c['type']}: {c['content']}"} for c in conversations
-            ],  # remove extra information to reduce tokens
+            context=get_formatted_messages(
+                conversations
+            ),  # remove extra information to reduce tokens
             job_position=session.get("job_position"),
             job_description="",  # not needed here but keeping for consistency
             question=payload.interview_question,
