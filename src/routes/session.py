@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 
 from pydantic import BaseModel
+from src.configs.typing import InterviewerType
 from src.libs.supabase_client import supabase
 from src.constants.tables import Table
 
@@ -34,8 +35,8 @@ def create_session(interview_session: Session):
             supabase.table(Table.interview_conversations)
             .insert(
                 {
-                    "session_id": response.data[0]["id"],
-                    "type": "interviewer",
+                    "session": response.data[0]["id"],
+                    "type": InterviewerType.INTERVIEWER,
                     "content": (
                         "Hello! I'm your interviewer and I'll be conducting your interview"
                         f"for the {interview_session.job_position}"
