@@ -38,11 +38,11 @@ def create_session(interview_session: Session):
                     "session": response.data[0]["id"],
                     "type": InterviewerType.INTERVIEWER,
                     "content": (
-                        "Hello! I'm your interviewer and I'll be conducting your interview"
-                        f"for the {interview_session.job_position}"
-                        f"position at {interview_session.company}.",
-                        "Let's start with a simple question: Can you tell me a"
-                        "bit about yourself and why you're interested in this role?",
+                        "Hello! I'm your interviewer and I'll be conducting your interview "
+                        f"for the {interview_session.job_position} "
+                        f"position at {interview_session.company}. "
+                        "Let's start with a simple question: Can you tell me a "
+                        "bit about yourself and why you're interested in this role?"
                     ),
                 }
             )
