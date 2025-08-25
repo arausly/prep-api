@@ -37,3 +37,25 @@ def create_session(interview_session: Session):
         raise HTTPException(
             status_code=500, detail=f"Error creating session: {str(e)}"
         ) from e
+
+
+@router.get("/{session_id}")
+def get_session(session_id: str):
+    """Get session by ID"""
+    try:
+        response = (
+            supabase.table(Table.interview_session)
+            .select("*")
+            .eq("id", session_id)
+            .execute()
+        )
+        if response.data is None or not bool(len(response.data)):
+            raise HTTPException(status_code=404, detail="Session not found")
+        return JSONResponse(
+            status_code=200,
+            content={"message": "session fetched", "session": response.data[0]},
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error fetching session: {str(e)}"
+        ) from e
