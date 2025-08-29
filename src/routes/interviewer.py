@@ -27,7 +27,10 @@ async def get_interview_question(session_id: str):
                 .execute()
             ),
             asyncio.to_thread(
-                lambda: supabase.table(Table.interview_conversations).select().execute()
+                lambda: supabase.table(Table.interview_conversations)
+                .select()
+                .eq("id", session_id)
+                .execute()
             ),
         )
         if interview_session_response.data is None:
