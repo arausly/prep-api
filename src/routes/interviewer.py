@@ -29,7 +29,7 @@ async def get_interview_question(session_id: str):
             asyncio.to_thread(
                 lambda: supabase.table(Table.interview_conversations)
                 .select()
-                .eq("id", session_id)
+                .eq("session", session_id)
                 .execute()
             ),
         )
@@ -39,10 +39,10 @@ async def get_interview_question(session_id: str):
         conversations = conversations_response.data
 
         first_question = (
-            "Hello! I'm your interviewer and I'll be conducting your interview for",
-            f"the {interview_session.get("job_position")} position.",
-            "Let's start with a simple question:",
-            "Can you tell me a bit about yourself and why you're interested in this role?",
+            "Hello! I'm your interviewer and I'll be conducting your interview for"
+            f"the {interview_session.get("job_position")} position."
+            "Let's start with a simple question:"
+            "Can you tell me a bit about yourself and why you're interested in this role?"
         )
 
         question = first_question
