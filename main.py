@@ -36,3 +36,9 @@ app.include_router(
 app.include_router(session_router, prefix="/sessions", tags=["Sessions"])
 app.include_router(interviewer_router, prefix="/interviewer", tags=["Interviewer"])
 app.include_router(coach_router, prefix="/coach", tags=["Coach"])
+
+
+@app.get("/")
+def is_awake():
+    """dummy endpoint to see if server is at least reachable"""
+    return {"awake": "live and direct"}
